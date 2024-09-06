@@ -60,7 +60,7 @@ The `TaskExt` class in Functional.DotNet provides extensions for working with `T
     ```
 
 
-***Query Expression***
+    ***Query Expression***
 
     ```csharp
         Task<int> task = Task.FromResult(5);
@@ -84,7 +84,7 @@ The `TaskExt` class in Functional.DotNet provides extensions for working with `T
     int resultValue = await recoveredTask;  // 0
     ```
 
-***Query Expression***
+    ***Query Expression***
 
     ```csharp
         Task<int> task = Task.FromException<int>(new Exception("Failure"));
@@ -107,7 +107,7 @@ The `TaskExt` class in Functional.DotNet provides extensions for working with `T
     string resultValue = await result;  // "5:5"
     ```
 
-***Query Expression***
+    ***Query Expression***
 
     ```csharp
         Task<int> task = Task.FromResult(5);
@@ -134,7 +134,7 @@ The `TaskExt` class in Functional.DotNet provides extensions for working with `T
     string resultValue = await result;  // "1-1"
     ```
 
-***Query Expression***
+    ***Query Expression***
 
     ```csharp
         Task<int> task1 = Task.FromResult(1);
@@ -162,7 +162,7 @@ The `TaskExt` class in Functional.DotNet provides extensions for working with `T
     IEnumerable<int> resultValue = await result;  // [1]
     ```
 
-***Query Expression***
+    ***Query Expression***
 
     ```csharp
         Task<int> task1 = Task.FromResult(1);
