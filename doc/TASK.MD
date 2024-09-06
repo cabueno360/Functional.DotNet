@@ -15,6 +15,17 @@ The `TaskExt` class in Functional.DotNet provides extensions for working with `T
     Task<string> resultTask = funcTask.Apply(valueTask);
     string result = await resultTask;  // "123"
     ```
+  ***Query Expression***
+    ```csharp
+        Task<Func<int, string>> funcTask = Task.FromResult<int, string>(x => x.ToString());
+        Task<int> valueTask = Task.FromResult(123);
+
+        Task<string> resultTask = from func in funcTask
+                                from value in valueTask
+                                select func(value);
+
+        string result = await resultTask;  // "123"
+    ```
 
 ### `Map<T, R>`
 - **Purpose**: Transforms the result of a `Task<T>` using a function (`Func<T, R>`).
@@ -24,6 +35,16 @@ The `TaskExt` class in Functional.DotNet provides extensions for working with `T
     Task<int> task = Task.FromResult(5);
     Task<string> result = task.Map(x => x.ToString());
     string resultValue = await result;  // "5"
+    ```
+
+   ***Query Expression***
+    ```csharp
+        Task<int> task = Task.FromResult(5);
+
+        Task<string> result = from x in task
+                            select x.ToString();
+
+        string resultValue = await result;  // "5"
     ```
 
 ### `Map<T, R>` with Fault Handling
@@ -38,6 +59,22 @@ The `TaskExt` class in Functional.DotNet provides extensions for working with `T
     string resultValue = await result;  // "5"
     ```
 
+
+***Query Expression***
+
+    ```csharp
+        Task<int> task = Task.FromResult(5);
+
+        Task<string> result = from x in task
+                            let success = x.ToString()
+                            catch (Exception ex)
+                            let faulted = "Error"
+                            select success;
+
+        string resultValue = await result;  // "5"
+              
+    ```
+
 ### `Recover<T>`
 - **Purpose**: Recovers from a faulted `Task<T>` by providing a fallback value.
 - **Usage Example**:
@@ -47,6 +84,18 @@ The `TaskExt` class in Functional.DotNet provides extensions for working with `T
     Task<int> recoveredTask = task.Recover(ex => 0);
     int resultValue = await recoveredTask;  // 0
     ```
+
+***Query Expression***
+
+    ```csharp
+        Task<int> task = Task.FromException<int>(new Exception("Failure"));
+
+        Task<int> recoveredTask = from x in task.Recover(ex => 0)
+                                select x;
+
+        int resultValue = await recoveredTask;  // 0
+ 
+    ```    
 
 ### `SelectMany<T, R, RR>`
 - **Purpose**: Chains asynchronous operations and projects the result.
@@ -58,6 +107,19 @@ The `TaskExt` class in Functional.DotNet provides extensions for working with `T
         x => Task.FromResult(x.ToString()),
         (x, y) => $"{x}:{y}");
     string resultValue = await result;  // "5:5"
+    ```
+
+***Query Expression***
+
+    ```csharp
+        Task<int> task = Task.FromResult(5);
+
+        Task<string> result = from x in task
+                              from y in Task.FromResult(x.ToString())
+                              select $"{x}:{y}";
+
+        string resultValue = await result;  // "5:5"
+      
     ```
 
 ### `Join<T, U, K, V>`
@@ -75,6 +137,20 @@ The `TaskExt` class in Functional.DotNet provides extensions for working with `T
     string resultValue = await result;  // "1-1"
     ```
 
+***Query Expression***
+
+    ```csharp
+        Task<int> task1 = Task.FromResult(1);
+        Task<int> task2 = Task.FromResult(1);
+
+        Task<string> result = from x in task1
+                            from y in task2
+                            select $"{x}-{y}";
+
+        string resultValue = await result;  // "1-1"
+              
+    ```
+
 ### `GroupJoin<T, U, K, V>`
 - **Purpose**: Performs a group join operation between two tasks.
 - **Usage Example**:
@@ -90,6 +166,19 @@ The `TaskExt` class in Functional.DotNet provides extensions for working with `T
     IEnumerable<int> resultValue = await result;  // [1]
     ```
 
+***Query Expression***
+
+    ```csharp
+        Task<int> task1 = Task.FromResult(1);
+        Task<int[]> task2 = Task.FromResult(new[] { 1, 2, 3 });
+
+        Task<IEnumerable<int>> result = from x in task1
+                                        from group in task2
+                                        select group.Where(g => g == x);
+
+        IEnumerable<int> resultValue = await result;  // [1]
+              
+    ```
 
 # Overview: Advantages of Using `TaskExt` Methods
 
