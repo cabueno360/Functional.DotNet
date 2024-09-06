@@ -60,20 +60,6 @@ The `TaskExt` class in Functional.DotNet provides extensions for working with `T
     ```
 
 
-    ***Query Expression***
-
-    ```csharp
-        Task<int> task = Task.FromResult(5);
-
-        Task<string> result = from x in task
-                            let success = x.ToString()
-                            catch (Exception ex)
-                            let faulted = "Error"
-                            select success;
-
-        string resultValue = await result;  // "5"
-    ```
-
 ### `Recover<T>`
 - **Purpose**: Recovers from a faulted `Task<T>` by providing a fallback value.
 - **Usage Example**:
