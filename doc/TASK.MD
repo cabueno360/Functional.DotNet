@@ -72,7 +72,6 @@ The `TaskExt` class in Functional.DotNet provides extensions for working with `T
                             select success;
 
         string resultValue = await result;  // "5"
-              
     ```
 
 ### `Recover<T>`
@@ -94,7 +93,6 @@ The `TaskExt` class in Functional.DotNet provides extensions for working with `T
                                 select x;
 
         int resultValue = await recoveredTask;  // 0
- 
     ```    
 
 ### `SelectMany<T, R, RR>`
@@ -119,7 +117,6 @@ The `TaskExt` class in Functional.DotNet provides extensions for working with `T
                               select $"{x}:{y}";
 
         string resultValue = await result;  // "5:5"
-      
     ```
 
 ### `Join<T, U, K, V>`
@@ -148,7 +145,6 @@ The `TaskExt` class in Functional.DotNet provides extensions for working with `T
                             select $"{x}-{y}";
 
         string resultValue = await result;  // "1-1"
-              
     ```
 
 ### `GroupJoin<T, U, K, V>`
@@ -176,8 +172,7 @@ The `TaskExt` class in Functional.DotNet provides extensions for working with `T
                                         from group in task2
                                         select group.Where(g => g == x);
 
-        IEnumerable<int> resultValue = await result;  // [1]
-              
+        IEnumerable<int> resultValue = await result;  // [1]       
     ```
 
 # Overview: Advantages of Using `TaskExt` Methods
