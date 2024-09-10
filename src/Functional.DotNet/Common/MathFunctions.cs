@@ -5,12 +5,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Functional.DotNet.Extensions;
-
+using static Functional.DotNet.F;
 namespace Functional.DotNet
 {
+   
     public static class MathFunctions
     {
-
         public static Func<float, float, int> Add = (a, b) => Convert.ToInt32(a + b);
 
         public static Func<float, float, int> Subtract = (a, b) => Convert.ToInt32(a - b);
