@@ -5,12 +5,12 @@ To start using **Functional.DotNet** in your C# projects, install the package fr
 
 - Using Package Manager:
 ```bash
-Install-Package Functional.DotNet -Version 1.3.0
+Install-Package Functional.DotNet -Version 8.0.0
 ```
 
 - Using .NET CLI:
 ```bash
-dotnet add package Functional.DotNet --version 1.3.0
+dotnet add package Functional.DotNet --version 8.0.0
 
 ```
 
@@ -23,7 +23,7 @@ Welcome to **Functional.DotNet**, a framework designed to enhance the functional
 - **Seamless Integration**: Integrates smoothly with existing C# projects.
 
 ## Documentation
-For a comprehensive guide on how to integrate and utilize **Functional.DotNet** in your C# projects, please refer to our [official documentation](https://github.com/kinderbueno360/Functional.DotNet/blob/main/doc/DOCUMENTATION.md).
+For a comprehensive guide on how to integrate and utilize **Functional.DotNet** in your C# projects, please refer to our [official documentation](https://github.com/cabueno360/Functional.DotNet/blob/main/doc/DOCUMENTATION.md).
 
 ## What's New in Version 1.1.0
 In version 1.1.0, we have introduced several new features to enhance your functional programming experience:
@@ -51,7 +51,11 @@ The `Identity` type is a monad that wraps a value. It's a simple container for a
 Refer to our documentation for details on integrating and using this framework in your C# projects.
 
 ## Learning Resources
-For beginners, check out my book ["Functional C#: Embracing Functional Programming in a C# World"](https://www.amazon.de/-/en/Carlos-Bueno/dp/B0C2SW3FHL/ref=sr_1_3?crid=2LFDX227TD7NL&keywords=functional+c%23&qid=1704711844&sprefix=%2Caps%2C91&sr=8-3), a great resource for understanding C# functional programming.
+For beginners, check out my book ["Functional C#: Embracing Functional Programming in a C# World"](https://www.amazon.de/-/en/Carlos-Bueno/dp/B0C2SW3FHL/ref=sr_1_3?
+crid=2LFDX227TD7NL&keywords=functional+c%23&qid=1704711844&sprefix=%2Caps%2C91&sr=8-3), a great resource for understanding C# functional programming.
+
+[**“C# Functional: Monads from Zero to Hero”**](https://www.amazon.com/dp/B0CTQBMSSZ) is an intermediate-level guide where I dive deep into the world of monads in C#. This book is designed for developers who already have a grasp of functional programming basics and want to expand their skills further. I’ll walk you through essential monad structures like `Maybe<T>`, `Either<L, R>`, and `Task<T>`, showing how they can simplify complex logic. 
+
 
 ## Features and Code Samples
 
