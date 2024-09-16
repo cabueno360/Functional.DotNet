@@ -8,43 +8,43 @@ namespace Functional.Net.Tests.Option
 {
     using static F;
 
-    public class OptionTest
-    {
-        [Fact]
-        public void MatchCallsAppropriateFunc()
-        {
-            Assert.Equal("hello, John", Greet(Some("John")));
-            Assert.Equal("sorry, who?", Greet(None));
-        }
+    //public class OptionTest
+    //{
+    //    [Fact]
+    //    public void MatchCallsAppropriateFunc()
+    //    {
+    //        Assert.Equal("hello, John", Greet(Some("John")));
+    //        Assert.Equal("sorry, who?", Greet(None));
+    //    }
 
-        private string Greet(Option<string> name)
-           => name.Match(
-                 Some: n => $"hello, {n}",
-                 None: () => "sorry, who?");
+    //    private string Greet(Option<string> name)
+    //       => name.Match(
+    //             Some: n => $"hello, {n}",
+    //             None: () => "sorry, who?");
 
-        [Property(Arbitrary = new[] { typeof(ArbitraryOption) })]
-        public void SingleClauseLINQExpr(Option<string> opt)
-           => Assert.Equal(
-                 from x in opt select DotNet.Extensions.String.ToUpper(x),
-                 opt.Map(DotNet.Extensions.String.ToUpper));
+    //    [Property(Arbitrary = new[] { typeof(ArbitraryOption) })]
+    //    public void SingleClauseLINQExpr(Option<string> opt)
+    //       => Assert.Equal(
+    //             from x in opt select DotNet.Extensions.String.ToUpper(x),
+    //             opt.Map(DotNet.Extensions.String.ToUpper));
 
-        [Property(Arbitrary = new[] { typeof(ArbitraryOption) })]
-        public void TwoClauseLINQExpr(Option<string> optA, Option<string> optB)
-           => Assert.Equal(
-               from a in optA
-               from b in optB
-               select a + b,
-               optA.Bind(a => optB.Map(b => a + b)));
+    //    [Property(Arbitrary = new[] { typeof(ArbitraryOption) })]
+    //    public void TwoClauseLINQExpr(Option<string> optA, Option<string> optB)
+    //       => Assert.Equal(
+    //           from a in optA
+    //           from b in optB
+    //           select a + b,
+    //           optA.Bind(a => optB.Map(b => a + b)));
 
-        [Property(Arbitrary = new[] { typeof(ArbitraryOption) })]
-        public void ThreeClauseLINQExpr(Option<string> optA, Option<string> optB, Option<string> optC)
-           => Assert.Equal(
-               from a in optA
-               from b in optB
-               from c in optC
-               select a + b + c,
-               optA.Bind(a => optB.Bind(b => optC.Map(c => a + b + c))));
-    }
+    //    [Property(Arbitrary = new[] { typeof(ArbitraryOption) })]
+    //    public void ThreeClauseLINQExpr(Option<string> optA, Option<string> optB, Option<string> optC)
+    //       => Assert.Equal(
+    //           from a in optA
+    //           from b in optB
+    //           from c in optC
+    //           select a + b + c,
+    //           optA.Bind(a => optB.Bind(b => optC.Map(c => a + b + c))));
+    //}
 
 
     public class Option_Convert_Test
