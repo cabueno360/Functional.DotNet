@@ -11,6 +11,9 @@ namespace Functional.DotNet
    
     public static class MathFunctions
     {
+
+        public static Func<int, int, int> AddFunc = (a, b) => Convert.ToInt32(a + b);
+
         public static Func<float, float, int> Add = (a, b) => Convert.ToInt32(a + b);
 
         public static Func<float, float, int> Subtract = (a, b) => Convert.ToInt32(a - b);

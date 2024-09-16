@@ -10,9 +10,36 @@ namespace Functional.DotNet
         public static Func<T> ToNullary<T>(this Func<Unit, T> f)
             => () => f(Unit());
 
-        public static Func<T1, R> Compose<T1, T2, R>(this Func<T2, R> g, Func<T1, T2> f)
-           => x => g(f(x));
+        // public static Func<T1, R> Compose<T1, T2, R>(this Func<T2, R> g, Func<T1, T2> f)
+        //    => x => g(f(x));
 
+        /// <summary>
+        /// Creates a new function by composing two functions, where the output of the first function is used as the input of the second function.
+        /// </summary>
+        /// <param name="this">The first function to compose.</param>
+        /// <param name="func">The second function to compose.</param>
+        /// <typeparam name="TIn">The type of the input parameter of the first function.</typeparam>
+        /// <typeparam name="TIntermediate">The return type of the first function and input type of the second function.</typeparam>
+        /// <typeparam name="TOut">The return type of the second function.</typeparam>
+        /// <returns>A new function that represents the composition of the two functions.</returns>
+        /// <exception cref="ArgumentNullException">
+        /// <paramref name="this"/> or <paramref name="func"/> is <c>null</c>.
+        /// </exception>
+        /// <example>
+        /// The following example demonstrates how to use the <see cref="Compose{TIn, TIntermediate, TOut}"/> method:
+        /// <code>
+        /// Func<int, int> multiplyByTwo = x => x * 2;
+        /// Func<int, string> toString = x => $"Result: {x}";
+        /// Func<int, string> composedFunc = multiplyByTwo.Compose(toString);
+        /// string result = composedFunc(5);
+        /// // result: "Result: 10"
+        /// </code>
+        /// </example>
+        public static Func<TIn, TOutNew> Compose<TIn, TOutOld, TOutNew>(
+            this Func<TIn, TOutOld> @this,
+            Func<TOutOld, TOutNew> f) =>
+            x => f(@this(x));
+        
         public static Func<T, bool> Negate<T>(this Func<T, bool> pred) => t => !pred(t);
 
         public static Func<T2, R> Apply<T1, T2, R>(this Func<T1, T2, R> func, T1 t1)

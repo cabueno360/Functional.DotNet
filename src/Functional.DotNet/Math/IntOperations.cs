@@ -1,4 +1,5 @@
 ﻿using static Functional.DotNet.F;
+using static Functional.DotNet.MathFunctions;
 namespace Functional.DotNet
 {
     public static class IntOperations
