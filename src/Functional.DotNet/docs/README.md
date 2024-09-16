@@ -5,12 +5,12 @@ To start using **Functional.DotNet** in your C# projects, install the package fr
 
 - Using Package Manager:
 ```bash
-Install-Package Functional.DotNet -Version 9.0.0
+Install-Package Functional.DotNet -Version 9.0.0-alpha
 ```
 
 - Using .NET CLI:
 ```bash
-dotnet add package Functional.DotNet --version 9.0.0
+dotnet add package Functional.DotNet --version 9.0.0-alpha
 
 ```
 
