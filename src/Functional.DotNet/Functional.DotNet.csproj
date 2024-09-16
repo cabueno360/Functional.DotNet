@@ -7,7 +7,7 @@
   </PropertyGroup>
   <PropertyGroup>
     <PackageId>Functional.DotNet</PackageId>
-    <Version>8.0.1</Version>
+    <Version>8.1.0</Version>
     <Authors>Carlos Bueno</Authors>
     <RepositoryUrl>https://github.com/cabueno360/Functional.DotNet</RepositoryUrl> 
     <PackageTags>functional csharp .net Monads ErrorHandling DataTypes Immutable Validation dotnet</PackageTags>

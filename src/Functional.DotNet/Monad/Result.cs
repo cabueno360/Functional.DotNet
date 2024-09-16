@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq;
-
+using static Functional.DotNet.F;
 namespace Functional.DotNet.Monad
 {
     /// <summary>
@@ -11,7 +11,13 @@ namespace Functional.DotNet.Monad
     /// <param name="Message"></param>
     /// <param name="Status"></param>
     /// <param name="Data"></param>
-    public sealed record Result<T>(bool Success, string Message, int Status, T? Data);
+    public sealed record Result<T>(bool IsSuccess, string Message, int Status, T? Data)
+    {
+        public bool IsFailure = !IsSuccess;
+
+        public Option<Exception> Exception { get; init; } = None;
+
+    };
 
     public sealed class Result
     {
@@ -19,9 +25,22 @@ namespace Functional.DotNet.Monad
 
         public static Result<T> BadRequest<T>(string message = "") => new(false, message, 400, default);
 
+        public static Result<T> BadRequest<T>(string message, Exception exception) =>
+            new(false, message, 400, default)
+            {
+                Exception = exception
+            };
+
         public static Result<T> NotFound<T>(string message = "") => new(false, message, 404, default);
 
         public static Result<T> Error<T>(string message) => new(false, message, 500, default);
+
+        public static Result<T> Error<T>(string message, Exception exception) =>
+            new(false, message, 500, default)
+            {
+                Exception = exception
+            };
+
 
         public static Result<T> Success<T>(T data) => new(true, string.Empty, 200, data);
     }

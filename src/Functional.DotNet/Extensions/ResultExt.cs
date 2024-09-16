@@ -36,6 +36,6 @@ namespace Functional.DotNet
 
         public static R Match<T, R>
               (this Result<T> @this, Func<Result<T>, R> Fail, Func<Result<T>, R> Success)
-              => @this.Success ? Success(@this) : Fail(@this);
+              => @this.IsSuccess ? Success(@this) : Fail(@this);
     }
 }
