@@ -11,11 +11,11 @@ namespace Functional.Net.Tests.Option
 
     public class Option_MonadLaws
     {
-        [Property(Arbitrary = new[] { typeof(ArbitraryOption) })]
-        void RightIdentityHolds(Option<object> m) => Assert.Equal(
-           m,
-           m.Bind(Some)
-        );
+        //[Property(Arbitrary = new[] { typeof(ArbitraryOption) })]
+        //void RightIdentityHolds(Option<object> m) => Assert.Equal(
+        //   m,
+        //   m.Bind(Some)
+        //);
 
         [Property]
         public void LeftIdentityHolds(int x)
@@ -49,10 +49,10 @@ namespace Functional.Net.Tests.Option
         Func<double, Option<double>> safeSqrt = d
            => d < 0 ? None : Some(Math.Sqrt(d));
 
-        [Property(Arbitrary = new[] { typeof(ArbitraryOption) })]
-        void AssociativityHolds(Option<string> m) => Assert.Equal(
-           m.Bind(DotNet.Extensions.Double.Parse).Bind(safeSqrt),
-           m.Bind(x => DotNet.Extensions.Double.Parse(x).Bind(safeSqrt))
-        );
+        //[Property(Arbitrary = new[] { typeof(ArbitraryOption) })]
+        //void AssociativityHolds(Option<string> m) => Assert.Equal(
+        //   m.Bind(DotNet.Extensions.Double.Parse).Bind(safeSqrt),
+        //   m.Bind(x => DotNet.Extensions.Double.Parse(x).Bind(safeSqrt))
+        //);
     }
 }

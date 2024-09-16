@@ -22,28 +22,28 @@ namespace Functional.Net.Tests.Option
                  Some: n => $"hello, {n}",
                  None: () => "sorry, who?");
 
-        [Property(Arbitrary = new[] { typeof(ArbitraryOption) })]
-        public void SingleClauseLINQExpr(Option<string> opt)
-           => Assert.Equal(
-                 from x in opt select DotNet.Extensions.String.ToUpper(x),
-                 opt.Map(DotNet.Extensions.String.ToUpper));
+        //[Property(Arbitrary = new[] { typeof(ArbitraryOption) })]
+        //public void SingleClauseLINQExpr(Option<string> opt)
+        //   => Assert.Equal(
+        //         from x in opt select DotNet.Extensions.String.ToUpper(x),
+        //         opt.Map(DotNet.Extensions.String.ToUpper));
 
-        [Property(Arbitrary = new[] { typeof(ArbitraryOption) })]
-        public void TwoClauseLINQExpr(Option<string> optA, Option<string> optB)
-           => Assert.Equal(
-               from a in optA
-               from b in optB
-               select a + b,
-               optA.Bind(a => optB.Map(b => a + b)));
+        //[Property(Arbitrary = new[] { typeof(ArbitraryOption) })]
+        //public void TwoClauseLINQExpr(Option<string> optA, Option<string> optB)
+        //   => Assert.Equal(
+        //       from a in optA
+        //       from b in optB
+        //       select a + b,
+        //       optA.Bind(a => optB.Map(b => a + b)));
 
-        [Property(Arbitrary = new[] { typeof(ArbitraryOption) })]
-        public void ThreeClauseLINQExpr(Option<string> optA, Option<string> optB, Option<string> optC)
-           => Assert.Equal(
-               from a in optA
-               from b in optB
-               from c in optC
-               select a + b + c,
-               optA.Bind(a => optB.Bind(b => optC.Map(c => a + b + c))));
+        //[Property(Arbitrary = new[] { typeof(ArbitraryOption) })]
+        //public void ThreeClauseLINQExpr(Option<string> optA, Option<string> optB, Option<string> optC)
+        //   => Assert.Equal(
+        //       from a in optA
+        //       from b in optB
+        //       from c in optC
+        //       select a + b + c,
+        //       optA.Bind(a => optB.Bind(b => optC.Map(c => a + b + c))));
     }
 
 

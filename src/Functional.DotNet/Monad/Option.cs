@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 using Functional.DotNet;
-using Unit = System.ValueTuple;
+using System.Reactive;
 
 namespace Functional.DotNet
 {
