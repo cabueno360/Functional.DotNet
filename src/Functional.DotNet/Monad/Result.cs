@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Orleans;
+using Orleans.CodeGeneration;
+using System;
 using System.Linq;
 using static Functional.DotNet.F;
 namespace Functional.DotNet.Monad
@@ -11,13 +13,38 @@ namespace Functional.DotNet.Monad
     /// <param name="Message"></param>
     /// <param name="Status"></param>
     /// <param name="Data"></param>
-    public sealed record Result<T>(bool IsSuccess, string Message, int Status, T? Data)
+    [GenerateSerializer]
+    public sealed record Result<T>
     {
-        public bool IsFailure = !IsSuccess;
+        [Id(0)]
+        public bool IsSuccess { get; init; }
 
-        public Option<Exception> Exception { get; init; } = None;
+        [Id(1)]
+        public string Message { get; init; }
 
-    };
+        [Id(2)]
+        public int Status { get; init; }
+
+        [Id(3)]
+        public T? Data { get; init; }
+
+        // Computed property; no need to serialize
+        public bool IsFailure => !IsSuccess;
+
+        // Replace Option<Exception> with a serializable type
+        [Id(4)]
+        public Exception? Exception { get; init; } = null;
+
+        // Constructor
+        public Result(bool isSuccess, string message, int status, T? data, Exception? exception = null)
+        {
+            IsSuccess = isSuccess;
+            Message = message;
+            Status = status;
+            Data = data;
+            Exception = exception;
+        }
+    }
 
     public sealed class Result
     {
