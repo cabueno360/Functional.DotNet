@@ -5,7 +5,7 @@ using FluentAssertions;
 using Xunit;
 using static Functional.DotNet.Exceptional;
 using System.Text.RegularExpressions;
-using Orleans;
+
 namespace Functional.DotNet.Tests.Exceptional
 {
     public class FunctionalErrorHandlerTests

@@ -16,7 +16,7 @@ namespace Functional.DotNet.MonadStacks
          , Func<T, Task<Result<R>>> func)
          => @this.Match(
                Fail: error => Async(Result.Error<R>(error.Message)),
-               Success: t => func(t.Data)
+               Success: t => func(t.Value)
             );
     }
 }

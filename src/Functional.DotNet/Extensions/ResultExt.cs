@@ -30,7 +30,7 @@ namespace Functional.DotNet
           (this Result<T> @this, Func<T, R> f)
           => @this.Match
           (
-             Success: t => Result.Success(f(t.Data)),
+             Success: t => Result.Success(f(t.Value)),
              Fail: errs => Result.Error<R>(errs.Message)
           );
 
