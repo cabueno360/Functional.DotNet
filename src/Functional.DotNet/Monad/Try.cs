@@ -35,8 +35,8 @@ namespace Functional.DotNet
            => ()
            => @try.Run().Match
               (
-                 Exception: ex => ex,
-                 Success: t => f(t).Run()
+                 OnError: ex => ex,
+                 OnSuccess: t => f(t).Run()
               );
 
         // LINQ

@@ -43,7 +43,7 @@ namespace Functional.DotNet
         public static Validation<Exceptional<R>> Traverse<T, R>
            (this Exceptional<T> tr, Func<T, Validation<R>> f)
            => tr.Match(
-              Exception: e => Valid((Exceptional<R>)e),
-              Success: t => from r in f(t) select Exceptional(r));
+              OnError: e => Valid((Exceptional<R>)e),
+              OnSuccess: t => from r in f(t) select Exceptional(r));
     }
 }

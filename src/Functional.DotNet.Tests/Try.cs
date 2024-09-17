@@ -17,8 +17,8 @@ namespace Functional.Net.Tests
             var uriTry = CreateUri("http://github.com");
 
             uriTry.Run().Match(
-                Success: uri => Assert.NotNull(uri),
-                Exception: ex => Fail()
+                OnSuccess: uri => Assert.NotNull(uri),
+                OnError: ex => Fail()
             );
         }
 
@@ -28,8 +28,8 @@ namespace Functional.Net.Tests
             var uriTry = CreateUri("rubbish");
 
             uriTry.Run().Match(
-                Success: uri => Fail(),
-                Exception: ex => Assert.NotNull(ex)
+                OnSuccess: uri => Fail(),
+                OnError: ex => Assert.NotNull(ex)
             );
         }
 
@@ -51,8 +51,8 @@ namespace Functional.Net.Tests
             Assert.False(tried, "mapping onto a try should not run it");
 
             uriTry.Run().Match(
-                Success: uri => Assert.NotNull(uri),
-                Exception: ex => Assert.True(false, "should have succeeded")
+                OnSuccess: uri => Assert.NotNull(uri),
+                OnError: ex => Assert.True(false, "should have succeeded")
             );
             Assert.True(tried, "matching should run the Try");
         }
