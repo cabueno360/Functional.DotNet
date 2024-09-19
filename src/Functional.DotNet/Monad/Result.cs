@@ -36,7 +36,12 @@ namespace Functional.DotNet.Monad
             Message = message;
             Status = status;
             Value = value;
-            Exception = exception;
+            Exception = exception is null 
+                            ? message is not null 
+                                ? new Exception(message) 
+                                : null 
+                            : null;
+            
         }
 
         /// <summary>
@@ -163,6 +168,8 @@ namespace Functional.DotNet.Monad
             }
             return new(Exception);
         }
+
+
 
         /// <summary>
         /// Defaults a Result to contain the specified value, if it contains an exception.
