@@ -7,7 +7,8 @@
   </PropertyGroup>
   <PropertyGroup>
     <PackageId>Functional.DotNet</PackageId>
-    <Version>8.1.5</Version>
+    <Version>8.1.8</Version>
+	<PackageIcon>LOGO.png</PackageIcon>
     <Authors>Carlos Bueno</Authors>
     <RepositoryUrl>https://github.com/cabueno360/Functional.DotNet</RepositoryUrl> 
     <PackageTags>functional csharp .net Monads ErrorHandling DataTypes Immutable Validation dotnet</PackageTags>
@@ -20,6 +21,8 @@
   <ItemGroup>
     
     <None Include="docs\README.md" Pack="true" PackagePath="\" />
+
+	  <None Include="docs\LOGO.png" Pack="true" PackagePath="\" />
     
 </ItemGroup>
   <ItemGroup>
