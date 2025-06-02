@@ -50,10 +50,24 @@ namespace Functional.DotNet
            (this Task<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, R>> @this, Task<T1> arg)
            => Apply(@this.Map(F.CurryFirst), arg);
 
-        public static async Task<R> Map<T, R>
-           (this Task<T> task, Func<T, R> f)
-           //=> f(await task);
-           => f(await task.ConfigureAwait(false));
+
+        public static Task<R> Map<T, R>(
+            this Task<T> task, Func<T, R> f, bool preserveContext = false)
+            => preserveContext
+                ? MapPreserveContext(task, f)
+                : MapNoContext(task, f);
+
+        private static async Task<R> MapPreserveContext<T, R>(Task<T> task, Func<T, R> f)
+            => f(await task);
+
+        private static async Task<R> MapNoContext<T, R>(Task<T> task, Func<T, R> f)
+            => f(await task.ConfigureAwait(false));
+
+
+        //public static async Task<R> Map<T, R>
+        //   (this Task<T> task, Func<T, R> f)
+        //   //=> f(await task);
+        //   => f(await task.ConfigureAwait(false));
 
         public static async Task<R> Map<R>
            (this Task task, Func<R> f)
@@ -105,10 +119,23 @@ namespace Functional.DotNet
             => @this.ContinueWith(t => continuation.ToFunc()(t.Result)
                 , TaskContinuationOptions.OnlyOnRanToCompletion);
 
-        public static async Task<R> Bind<T, R>
-           (this Task<T> task, Func<T, Task<R>> f)
-            //=> await f(await task);
-            => await f(await task.ConfigureAwait(false)).ConfigureAwait(false);
+
+        public static Task<R> Bind<T, R>(
+            this Task<T> task, Func<T, Task<R>> f, bool preserveContext = false)
+            => preserveContext
+                ? BindPreserveContext(task, f)
+                : BindNoContext(task, f);
+
+                private static async Task<R> BindPreserveContext<T, R>(Task<T> task, Func<T, Task<R>> f)
+                    => await f(await task);
+
+                private static async Task<R> BindNoContext<T, R>(Task<T> task, Func<T, Task<R>> f)
+                    => await f(await task.ConfigureAwait(false)).ConfigureAwait(false);
+
+        //public static async Task<R> Bind<T, R>
+        //   (this Task<T> task, Func<T, Task<R>> f)
+        //    //=> await f(await task);
+        //    => await f(await task.ConfigureAwait(false)).ConfigureAwait(false);
 
 
         public static Task<T> OrElse<T>
