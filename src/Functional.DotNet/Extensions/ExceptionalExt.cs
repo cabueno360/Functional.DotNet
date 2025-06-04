@@ -25,6 +25,14 @@ namespace Functional.DotNet.Extensions
             }
         }
 
+        public static Task<TOut> OnSuccessAsync<TIn, TOut>(
+            this Either<Exceptional<TIn>, TOut> @this,
+            Func<TIn, Task<TOut>> onSuccessAsync) =>
+            @this.Match(
+                Left: exceptional => onSuccessAsync(exceptional.Value),
+                Right: Task.FromResult); // wraps already-available TOut in a Task
+
+
         public static Exceptional<TOut> BindWithTryCatch<TIn, TOut>(
             this Exceptional<TIn> @this,
             Func<TIn, Exceptional<TOut>> f)
