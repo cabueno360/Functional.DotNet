@@ -23,8 +23,8 @@ namespace Functional.DotNet
 
     public struct Validation<T>
     {
-        internal IEnumerable<Error> Errors { get; }
-        internal T? Value { get; }
+        public IEnumerable<Error> Errors { get; }
+        public T? Value { get; }
 
         public bool IsValid { get; }
 
