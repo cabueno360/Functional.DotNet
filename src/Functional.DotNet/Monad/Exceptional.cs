@@ -1,6 +1,5 @@
 ﻿using System;
 using Functional.DotNet;
-using Unit = System.ValueTuple;
 
 namespace Functional.DotNet
 {
@@ -11,7 +10,7 @@ namespace Functional.DotNet
 
     public struct Exceptional<T>
     {
-        private Exception? Ex { get; }
+        public Exception? Ex { get; }
         public T? Value { get; }
 
         public bool IsSuccess { get; }
@@ -34,11 +33,11 @@ namespace Functional.DotNet
         public static implicit operator Exceptional<T>(Exception ex) => new(ex);
         public static implicit operator Exceptional<T>(T t) => new(t);
 
-        public TR Match<TR>(Func<Exception, TR> Exception, Func<T, TR> Success)
-           => this.IsException ? Exception(Ex!) : Success(Value!);
+        public TR Match<TR>(Func<Exception, TR> OnError, Func<T, TR> OnSuccess)
+           => this.IsException ? OnError(Ex!) : OnSuccess(Value!);
 
-        public Unit Match(Action<Exception> Exception, Action<T> Success)
-           => Match(Exception.ToFunc(), Success.ToFunc());
+        public Unit Match(Action<Exception> OnError, Action<T> OnSuccess)
+           => Match(OnError.ToFunc(), OnSuccess.ToFunc());
 
         public override string ToString()
            => Match(
@@ -49,6 +48,11 @@ namespace Functional.DotNet
     public static class Exceptional
     {
         // creating a new Exceptional
+        public static Exceptional<T> Success<T>(T? value) =>
+            new(value);
+
+        public static Exceptional<T> Error<T>(Exception ex) =>
+            new(ex);
 
         public static Func<T, Exceptional<T>> Return<T>()
            => t => t;
@@ -64,10 +68,10 @@ namespace Functional.DotNet
         public static Exceptional<R> Apply<T, R>
            (this Exceptional<Func<T, R>> @this, Exceptional<T> arg)
            => @this.Match(
-              Exception: ex => ex,
-              Success: func => arg.Match(
-                 Exception: ex => ex,
-                 Success: t => F.Exceptional(func(t))));
+              OnError: ex => ex,
+              OnSuccess: func => arg.Match(
+                 OnError: ex => ex,
+                 OnSuccess: t => F.Exceptional(func(t))));
 
         public static Exceptional<Func<T2, R>> Apply<T1, T2, R>
            (this Exceptional<Func<T1, T2, R>> @this, Exceptional<T1> arg)
@@ -110,8 +114,8 @@ namespace Functional.DotNet
         )
         => @this.Match
         (
-           Exception: ex => new Exceptional<RR>(ex),
-           Success: r => f(r)
+           OnError: ex => new Exceptional<RR>(ex),
+           OnSuccess: r => f(r)
         );
 
         public static Exceptional<Unit> ForEach<R>(this Exceptional<R> @this, Action<R> act)
@@ -124,8 +128,8 @@ namespace Functional.DotNet
         )
         => @this.Match
         (
-           Exception: ex => new Exceptional<RR>(ex),
-           Success: r => f(r)
+           OnError: ex => new Exceptional<RR>(ex),
+           OnSuccess: r => f(r)
         );
 
         // LINQ
@@ -141,11 +145,11 @@ namespace Functional.DotNet
         )
         => @this.Match
         (
-           Exception: ex => new Exceptional<RR>(ex),
-           Success: t => bind(t).Match
+           OnError: ex => new Exceptional<RR>(ex),
+           OnSuccess: t => bind(t).Match
            (
-              Exception: ex => new Exceptional<RR>(ex),
-              Success: r => project(t, r)
+              OnError: ex => new Exceptional<RR>(ex),
+              OnSuccess: r => project(t, r)
            )
         );
     }
