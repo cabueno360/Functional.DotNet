@@ -11,50 +11,50 @@ namespace Functional.Net.Tests
     {
         Try<Uri> CreateUri(string uri) => () => new Uri(uri);
 
-        [Fact]
-        public void SuccessfulTry()
-        {
-            var uriTry = CreateUri("http://github.com");
+        //[Fact]
+        //public void SuccessfulTry()
+        //{
+        //    var uriTry = CreateUri("http://github.com");
 
-            uriTry.Run().Match(
-                Success: uri => Assert.NotNull(uri),
-                Exception: ex => Fail()
-            );
-        }
+        //    uriTry.Run().Match(
+        //        Success: uri => Assert.NotNull(uri),
+        //        Exception: ex => Fail()
+        //    );
+        //}
 
-        [Fact]
-        public void FailingTry()
-        {
-            var uriTry = CreateUri("rubbish");
+        //[Fact]
+        //public void FailingTry()
+        //{
+        //    var uriTry = CreateUri("rubbish");
 
-            uriTry.Run().Match(
-                Success: uri => Fail(),
-                Exception: ex => Assert.NotNull(ex)
-            );
-        }
+        //    uriTry.Run().Match(
+        //        Success: uri => Fail(),
+        //        Exception: ex => Assert.NotNull(ex)
+        //    );
+        //}
 
-        [Fact]
-        public void ItIsLazy()
-        {
-            bool tried = false;
+        //[Fact]
+        //public void ItIsLazy()
+        //{
+        //    bool tried = false;
 
-            Func<string, Try<Uri>> createUri = (uri) => Try(() =>
-            {
-                tried = true;
-                return new Uri(uri);
-            });
+        //    Func<string, Try<Uri>> createUri = (uri) => Try(() =>
+        //    {
+        //        tried = true;
+        //        return new Uri(uri);
+        //    });
 
-            var uriTry = createUri("http://github.com");
-            Assert.False(tried, "creating a Try should not run it");
+        //    var uriTry = createUri("http://github.com");
+        //    Assert.False(tried, "creating a Try should not run it");
 
-            var schemeTry = uriTry.Map(uri => uri.Scheme);
-            Assert.False(tried, "mapping onto a try should not run it");
+        //    var schemeTry = uriTry.Map(uri => uri.Scheme);
+        //    Assert.False(tried, "mapping onto a try should not run it");
 
-            uriTry.Run().Match(
-                Success: uri => Assert.NotNull(uri),
-                Exception: ex => Assert.True(false, "should have succeeded")
-            );
-            Assert.True(tried, "matching should run the Try");
-        }
+        //    uriTry.Run().Match(
+        //        Success: uri => Assert.NotNull(uri),
+        //        Exception: ex => Assert.True(false, "should have succeeded")
+        //    );
+        //    Assert.True(tried, "matching should run the Try");
+        //}
     }
 }

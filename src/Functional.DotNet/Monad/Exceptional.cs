@@ -1,5 +1,6 @@
 ﻿using System;
 using Functional.DotNet;
+using Unit = System.ValueTuple;
 
 namespace Functional.DotNet
 {

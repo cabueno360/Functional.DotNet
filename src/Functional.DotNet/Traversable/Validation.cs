@@ -38,12 +38,12 @@ namespace Functional.DotNet
         { throw new NotImplementedException(); }
     }
 
-    public static class ExceptionalTraversable
-    {
-        public static Validation<Exceptional<R>> Traverse<T, R>
-           (this Exceptional<T> tr, Func<T, Validation<R>> f)
-           => tr.Match(
-              Exception: e => Valid((Exceptional<R>)e),
-              Success: t => from r in f(t) select Exceptional(r));
-    }
+    //public static class ExceptionalTraversable
+    //{
+    //    public static Validation<Exceptional<R>> Traverse<T, R>
+    //       (this Exceptional<T> tr, Func<T, Validation<R>> f)
+    //       => tr.Match(
+    //          Exception: e => Valid((Exceptional<R>)e),
+    //          Success: t => from r in f(t) select Exceptional(r));
+    //}
 }

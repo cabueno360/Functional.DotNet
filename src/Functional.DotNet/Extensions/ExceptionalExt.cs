@@ -25,6 +25,23 @@ namespace Functional.DotNet.Extensions
             }
         }
 
+        public static Exceptional<TOut> BindWithTryCatch<TIn, TOut>(
+            this Exceptional<TIn> @this,
+            Func<TIn, Exceptional<TOut>> f)
+                {
+                    if (@this.IsException)
+                        return Error<TOut>(@this.Ex);
+
+                    try
+                    {
+                        return f(@this.Value);
+                    }
+                    catch (Exception ex)
+                    {
+                        return Error<TOut>(ex);
+                    }
+                }
+
         public static TIn Tap<TIn>(
             this TIn @this,
             Action<TIn> action)

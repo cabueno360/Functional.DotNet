@@ -30,14 +30,14 @@ namespace Functional.DotNet
            (this Try<T1> @try, Func<T1, T2, R> func)
            => @try.Map(func.Curry());
 
-        public static Try<R> Bind<T, R>
-           (this Try<T> @try, Func<T, Try<R>> f)
-           => ()
-           => @try.Run().Match
-              (
-                 Exception: ex => ex,
-                 Success: t => f(t).Run()
-              );
+        //public static Try<R> Bind<T, R>
+        //   (this Try<T> @try, Func<T, Try<R>> f)
+        //   => ()
+        //   => @try.Run().Match
+        //      (
+        //         Exception: ex => ex,
+        //         Success: t => f(t).Run()
+        //      );
 
         // LINQ
 
