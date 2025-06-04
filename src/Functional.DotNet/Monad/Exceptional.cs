@@ -12,10 +12,10 @@ namespace Functional.DotNet
     public struct Exceptional<T>
     {
         private Exception? Ex { get; }
-        private T? Value { get; }
+        public T? Value { get; }
 
-        private bool IsSuccess { get; }
-        private bool IsException => !IsSuccess;
+        public bool IsSuccess { get; }
+        public bool IsException => !IsSuccess;
 
         internal Exceptional(Exception ex)
         {
